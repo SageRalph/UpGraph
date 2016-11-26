@@ -1,0 +1,28 @@
+{
+  "name": "UpGraph",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "eslint *.js",
+    "start": "node app"
+  },
+  "keywords": [],
+  "author": "Louis Capitanchik, David Ralph",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "cheerio": "^0.22.0",
+    "compression": "1.6.2",
+    "express": "4.14.0",
+    "helmet": "3.1.0",
+    "jsonfile": "2.4.0",
+    "lodash": "4.17.2",
+    "moment": "^2.15.1",
+    "node-schedule": "1.2.0",
+    "request": "^2.75.0",
+    "request-promise": "^4.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.5.0"
+  }
+}
