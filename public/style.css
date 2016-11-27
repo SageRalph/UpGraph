@@ -1,0 +1,48 @@
+html, body {
+    height: 100%;
+}
+h1{
+    padding:0.2em;
+    margin:0;
+    margin-bottom: 0.5em;
+    text-align: center;
+    background: #e8e8e8;
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
+}
+#filters{
+    background: #e8e8e8;
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
+    width:25%;
+    height:90%;
+}
+#chartdiv {
+    width: 75%;
+    height: 90%;
+    float:right;
+}
+
+#controls{
+    height:10em;
+    width:100%;
+    display: flex;
+    flex-direction: row;
+}
+button{
+    flex-grow: 1;
+    height:2em;
+    font-size: 1em;
+}
+
+#filters {
+    display: flex;
+    flex-direction: column;
+}
+#toggles {
+    padding-left: 2em;
+    overflow-y:scroll;
+    flex-grow: 1;
+}

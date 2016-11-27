@@ -1,4 +1,6 @@
 
+var defaultSocNumber = 10; // When page loads, show only this many societies
+
 var chart, data, data, societies;
 
 window.addEventListener('load', function () {
@@ -8,84 +10,103 @@ window.addEventListener('load', function () {
 function init(response, status) {
     if (status >= 400 || !response)
         return console.error('Data request failed');
-//    console.log('INIT - Recieved:');
-//    console.log(response);
 
     data = response;
-    societies = Object.keys(data[0]);
-    societies.splice(societies.indexOf("date"), 1);
-    //console.log('Societies: ' + societies);
+    societies = getSocs(defaultSocNumber);
 
     drawGraph();
     drawToggles();
 }
 
+function getSocs(limit) {
+    var socs = Object.keys(data[0]);
+    socs.splice(socs.indexOf("date"), 1);
+    if (limit && socs.length > limit)
+        socs = socs.slice(0, limit);
+    //console.log('Societies: ' + socs);
+    return socs;
+}
+
+function selectAll() {
+    societies = getSocs();
+    drawToggles();
+    drawGraph();
+}
+
+/**
+ * Removes elem from arr if present, othewise adds elem to arr
+ */
+function invertMembership(elem, arr) {
+    var pos = arr.indexOf(elem);
+    if (pos >= 0) {
+        arr.splice(pos, 1);
+    } else {
+        arr.push(elem);
+    }
+}
 
 function toggleSoc(soc) {
-    console.log('Toggling: ' + soc);
+    invertMembership(soc, societies);
+    drawGraph();
+}
 
-    // Update societies array
-    var pos = societies.indexOf(soc);
-    console.log(pos);
-    if (pos >= 0) {
-        societies.splice(pos, 1);
-    } else {
-        societies.push(soc);
-    }
-
+function toggleAll() {
+    var all = getSocs();
+    all.forEach(function (soc, i) {
+        var toggle = document.getElementById('toggle' + i);
+        toggle.checked = !toggle.checked;
+        invertMembership(soc, societies);
+    });
     drawGraph();
 }
 
 function drawToggles() {
-    console.log("Drawing toggles");
-    var toggles = document.createElement('ol');
-    for (var i = 0; i < societies.length; i++) {
-        var soc = societies[i];
+
+    var socs = getSocs();
+    var toggles = document.getElementById('toggles');
+    toggles.innerHTML = '';
+
+    // Create a checkbox, inside a label, inside an li for each society
+    for (var i = 0; i < socs.length; i++) {
+        var soc = socs[i];
         var socSize = data[[data.length - 1]][soc];
         var li = document.createElement('li');
         var label = document.createElement('label');
         var cb = document.createElement('input');
+        cb.id = "toggle" + i;
         cb.type = 'checkbox';
-        cb.checked = 'true';
+        if (societies.indexOf(socs[i]) >= 0)
+            cb.checked = 'true';
         cb.onclick = toggleSoc.bind(null, soc);
         label.innerHTML = soc + ' (' + socSize + ' members)';
         label.insertBefore(cb, label.firstChild);
         li.appendChild(label);
         toggles.appendChild(li);
     }
-    document.body.appendChild(toggles);
 }
 
 function drawGraph() {
 
-    console.log("Drawing graph");
-
     var graphs = [];
-    console.log(data);
-    console.log(societies);
+    //console.log(data);
+    //onsole.log(societies);
 
     // Define lines to draw on graph
     societies.forEach(function (socName, i) {
         graphs.push({
             "id": "g" + i,
-            "balloon": {
-                "drop": true,
-                "adjustBorderColor": false,
-                "color": "#ffffff"
-            },
             "bullet": "round",
             "bulletBorderAlpha": 1,
             "bulletColor": "#FFFFFF",
             "bulletSize": 5,
             "hideBulletsCount": 50,
             "lineThickness": 2,
-            "title": "red line",
+            "title": socName,
             "useLineColorForBulletBorder": true,
             "valueField": socName,
-            "balloonText": "<span style='font-size:18px;'>[[value]]</span>"
+            "balloonText": "<span style='font-size:1.2em;'>[[title]] : [[value]]</span>"
         });
     });
-
 
     // Draw graph
     chart = AmCharts.makeChart("chartdiv", {
@@ -150,7 +171,6 @@ function drawGraph() {
     });
 
     chart.addListener("rendered", zoomChart);
-
     zoomChart();
 }
 function zoomChart() {
