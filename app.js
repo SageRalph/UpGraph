@@ -28,7 +28,7 @@ app.use(compression());
 //------------------------------------------------------------------------------
 
 var router = express.Router();
-app.use('/', router);
+app.use('/upgraph', router);
 
 // Start server
 console.log("Server starting on port " + PORT);
@@ -45,6 +45,6 @@ module.exports = app.listen(PORT, function (err) {
 // Routesa
 //------------------------------------------------------------------------------
 
-app.use('/', express.static(path.join(__dirname, 'public')));
+app.use('/upgraph', express.static(path.join(__dirname, 'public')));
 router.get('/data', controller.getData);
 router.post('/run', controller.run);
