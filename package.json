@@ -2,6 +2,7 @@
   "name": "UpGraph",
   "version": "1.0.0",
   "description": "",
+  "repository": "https://github.com/DavidRalph/UpGraph",
   "scripts": {
     "test": "eslint *.js",
     "start": "node app"
