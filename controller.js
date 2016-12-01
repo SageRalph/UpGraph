@@ -4,7 +4,8 @@ const crawl = require('./crawl');
 
 // Data stored in file for now
 const dataPath = './data.json';
-//var data = require(./testdata.json);
+
+//var data = require('./testdata.json');
 var data = [];
 try {
     data = require(dataPath);

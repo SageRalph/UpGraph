@@ -26,7 +26,6 @@ h1{
 }
 
 #controls{
-    height:10em;
     width:100%;
     display: flex;
     flex-direction: row;
@@ -42,7 +41,30 @@ button{
     flex-direction: column;
 }
 #toggles {
-    padding-left: 2em;
-    overflow-y:scroll;
     flex-grow: 1;
+    width:100%;
 }
+
+th div{
+    color:#666666;
+    font-weight: bold;
+    cursor: default;
+}
+
+/*Row numbers in table*/
+table.sortable tbody {
+    counter-reset: sortabletablescope;
+}
+table.sortable thead tr::before {
+    content: "";
+    display: table-cell;
+}
+table.sortable tbody tr::before {
+    content: counter(sortabletablescope);
+    counter-increment: sortabletablescope;
+    display: table-cell;
+    padding:0.3em 0 0.3em 0.3em;
+}
+
+
+

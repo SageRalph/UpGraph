@@ -1,13 +1,17 @@
 <html>
     <head>
         <title>UpGraph</title>
+
+        <link rel="stylesheet" href="scrollingtable.css" type="text/css"/>
         <link rel="stylesheet" href="style.css" type="text/css"/>
+
         <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
         <script src="https://www.amcharts.com/lib/3/serial.js"></script>
         <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
         <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
         <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
         <script src="graphs.js"></script>
+        <script src="sorttable.js"></script>
     </head>
 
     <body>
@@ -18,7 +22,26 @@
                 <button onclick="toggleAll()">Invert Selection</button>
                 <button onclick="selectAll()">Select All</button>
             </section>
-            <ol id="toggles"></ol>
+
+            <div class="scrollingtable">
+                <div>
+                    <div>
+                        <table id='toggles' class="sortable">
+                            <thead>
+                                <tr>
+                                    <th><div label="Society Name"></div></th>
+                                    <th class="sorttable_numeric"><div label="Mbrs"></div></th>
+                                    <th class="sorttable_numeric"><div label="ΔWeek"></div></th>
+                                    <th class="sorttable_numeric"><div label="ΔDay"></div></th>
+                                    <th class='sorttable_nosort'></th>
+                                    <th class="scrollbarhead sorttable_nosort"/>
+                                </tr> 
+                            </thead>
+                            <tbody id='socs'></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </section>
     </body>
 </html>

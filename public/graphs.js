@@ -7,6 +7,10 @@ window.addEventListener('load', function () {
     ajax("GET", "data", null, init);
 });
 
+/**
+ * Callback for society data request.
+ * Instantiates data-based user interface components.
+ */
 function init(response, status) {
     if (status >= 400 || !response)
         return console.error('Data request failed');
@@ -15,9 +19,12 @@ function init(response, status) {
     societies = getSocs(defaultSocNumber);
 
     drawGraph();
-    drawToggles();
+    listSocs();
 }
 
+/**
+ * Returns a list of current societies, up to limit (or all if not set).
+ */
 function getSocs(limit) {
     var socs = Object.keys(data[0]);
     socs.splice(socs.indexOf("date"), 1);
@@ -27,9 +34,12 @@ function getSocs(limit) {
     return socs;
 }
 
+/**
+ * Sets all societies to be displayed on the graph
+ */
 function selectAll() {
     societies = getSocs();
-    drawToggles();
+    listSocs();
     drawGraph();
 }
 
@@ -45,11 +55,17 @@ function invertMembership(elem, arr) {
     }
 }
 
+/**
+ * Inverts whether soc should be displayed on the graph.
+ */
 function toggleSoc(soc) {
     invertMembership(soc, societies);
     drawGraph();
 }
 
+/**
+ * Inverts the list of societies to be displayed on the graph.
+ */
 function toggleAll() {
     var all = getSocs();
     all.forEach(function (soc, i) {
@@ -60,31 +76,82 @@ function toggleAll() {
     drawGraph();
 }
 
-function drawToggles() {
-
+/**
+ * Updates the tbody 'socs' with a list of all current societies,
+ * their current membership numbers, membership trends over the last
+ * day and week, and an option for toggling them on the graph.
+ */
+function listSocs() {
     var socs = getSocs();
-    var toggles = document.getElementById('toggles');
-    toggles.innerHTML = '';
+    var tbody = document.getElementById('socs');
 
-    // Create a checkbox, inside a label, inside an li for each society
+    // Remove any existing rows (excluding table headers)
+    tbody.innerHTML = "";
+
+    // Add a row for each society
     for (var i = 0; i < socs.length; i++) {
         var soc = socs[i];
-        var socSize = data[[data.length - 1]][soc];
-        var li = document.createElement('li');
-        var label = document.createElement('label');
+        var row = document.createElement('tr');
+        row.appendChild(td(soc));               // Society name
+        row.appendChild(td(socSize(soc)));      // Current membership
+        row.appendChild(td(socGrowth(soc, 7))); // 7 day growth
+        row.appendChild(td(socGrowth(soc, 1))); // 1 day growth
+
+        // Checkbox for toggling on graph
         var cb = document.createElement('input');
         cb.id = "toggle" + i;
         cb.type = 'checkbox';
-        if (societies.indexOf(socs[i]) >= 0)
+        if (societies.indexOf(soc) >= 0)
             cb.checked = 'true';
         cb.onclick = toggleSoc.bind(null, soc);
-        label.innerHTML = soc + ' (' + socSize + ' members)';
-        label.insertBefore(cb, label.firstChild);
-        li.appendChild(label);
-        toggles.appendChild(li);
+        row.appendChild(td(cb));
+
+        tbody.appendChild(row);
     }
 }
 
+/**
+ * Returns a td element containing content.
+ * If content is an object, it will be appended as a child.
+ */
+function td(content) {
+    var td = document.createElement('td');
+    if (typeof content === 'object') {
+        td.appendChild(content);
+    } else {
+        td.innerHTML = content;
+    }
+    return td;
+}
+
+/**
+ * Returns the total membership of soc.
+ * If daysAgo is specified, the value from that date will be returned.
+ * If soc is not found, will return 0
+ * 
+ * Note: This assumes all items in data are one day 
+ * apart and that there are no missing intervals.
+ */
+function socSize(soc, daysAgo) {
+    var dl = data.length;
+    if (!daysAgo || daysAgo === 0) {
+        return data[[dl - 1]][soc] || 0;
+    }
+    var i = daysAgo + 1;
+    return dl >= i ? data[[dl - i]][soc] || 0 : 0;
+}
+
+/**
+ * Returns the number of new members of soc over a period of days.
+ */
+function socGrowth(soc, days) {
+    return socSize(soc) - socSize(soc, days);
+}
+
+/**
+ * Generates and draws a graph of society membership over time.
+ * Only selected societies (members of the societies array) will be drawn.
+ */
 function drawGraph() {
 
     var graphs = [];
