@@ -7,6 +7,15 @@ window.addEventListener('load', function () {
     ajax("GET", "data", null, init);
 });
 
+
+/**
+ * Toggles display of the sidebar.
+ */
+function toggleSidebar() {
+    var ch = document.getElementById('chartdiv');
+    ch.className = ch.className === 'hasSidebar' ? 'fullWidth' : 'hasSidebar';
+}
+
 /**
  * Callback for society data request.
  * Instantiates data-based user interface components.

@@ -20,9 +20,23 @@ h1{
     height:90%;
 }
 #chartdiv {
-    width: 75%;
-    height: 90%;
     float:right;
+    height: 90%;
+}
+
+.hasSidebar{
+    width: -webkit-calc(100% - 30em);
+    width:    -moz-calc(100% - 30em);
+    width:         calc(100% - 30em);
+}
+.fullWidth{
+    width:100%;
+}
+
+#sbtoggle{
+    position:absolute;
+    top:1em;
+    left:1em;
 }
 
 #controls{
@@ -37,6 +51,7 @@ button{
 }
 
 #filters {
+    width:30em;
     display: flex;
     flex-direction: column;
 }
@@ -68,3 +83,11 @@ table.sortable tbody tr::before {
 
 
 
+@media (max-width: 60em) {
+    .hasSidebar{
+        width:100%;
+    }
+    #sbtoggle{
+        display:none;
+    }
+}
