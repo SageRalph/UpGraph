@@ -136,18 +136,42 @@ function td(content) {
 /**
  * Returns the total membership of soc.
  * If daysAgo is specified, the value from that date will be returned.
+ * If daysAgo is negative, the initial size will be returned.
+ * Days ago is counted from the last date in data, not the current date.
  * If soc is not found, will return 0
  * 
- * Note: This assumes all items in data are one day 
- * apart and that there are no missing intervals.
+ * Note: This assumes all socs are present in each data item, if any socs
+ * are missing in an item, they are assumed to not exist in previous ones.
+ * If records are missing, data from the closest existing day prior is used.
  */
 function socSize(soc, daysAgo) {
     var dl = data.length;
+
+    // Current size
     if (!daysAgo || daysAgo === 0) {
         return data[[dl - 1]][soc] || 0;
     }
-    var i = daysAgo + 1;
-    return dl >= i ? data[[dl - i]][soc] || 0 : 0;
+
+    // Initial size
+    if (daysAgo < 0) {
+        return data[0][soc] || 0;
+    }
+
+    // Size on date
+    var d = new Date(data[[dl - 1]].date);
+    d.setDate(d.getDate() - daysAgo);
+    //console.log('\nLooking for size on date: ' + d);
+    for (var i = dl - 1; i >= 0; i--) {
+        var cd = new Date(data[i].date);
+        if (d >= cd) {
+            //console.log('Using date: ' + d);
+            return data[[i]][soc] || 0;
+        }
+        //console.log(i + ": " + d + " > " + cd);
+    }
+
+    // Soc did not exist on date
+    return 0;
 }
 
 /**

@@ -2,13 +2,14 @@ const jsonfile = require('jsonfile');
 const schedule = require('node-schedule');
 const crawl = require('./crawl');
 
-// Data stored in file for now
-const dataPath = './data.json';
+const TESTING = false;
 
-//var data = require('./testdata.json');
+// Data stored in file for now
+const DATAPATH = './data.json';
+
 var data = [];
 try {
-    data = require(dataPath);
+    data = TESTING ? require('./testdata.json') : require(DATAPATH);
 } catch (ex) {
 }
 
@@ -45,7 +46,7 @@ function save(crawled) {
     console.log('New data added:');
     console.log(newData);
 
-    jsonfile.writeFile(dataPath, data, function (err) {
+    jsonfile.writeFile(DATAPATH, data, function (err) {
         console.log(err ? 'Error saving data:' : 'Data saved to file');
         if (err) console.error(err);
     });
