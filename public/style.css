@@ -1,27 +1,36 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+
 html, body {
     height: 100%;
+    margin:0;
+    padding:0;
+    font-family: "Roboto", helvetica, arial, sans-serif;
+    color:white;
+    background: rgb(84,84,84);
+    background: -moz-linear-gradient(45deg, #aaaaaa 2%, #dddddd 100%);
+    background: -webkit-linear-gradient(45deg, #aaaaaa 2%,#dddddd 100%);
+    background: linear-gradient(45deg, #aaaaaa 2%,#dddddd 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#545454', endColorstr='#818181',GradientType=1 );
 }
 h1{
-    padding:0.2em;
+    padding:0.4em 20em;
     margin:0;
-    margin-bottom: 0.5em;
     text-align: center;
-    background: #e8e8e8;
-    -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
-    -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
-    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
+    background: rgba(0,0,0, 0.4);
+    -webkit-box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.5);
 }
 #filters{
-    background: #e8e8e8;
-    -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
-    -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
-    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
+    background: rgba(0,0,0, 0.4);
     width:25%;
-    height:90%;
+    height:calc(100% - 4em);
+    
 }
 #chartdiv {
     float:right;
     height: 90%;
+    margin-top:2em;
 }
 
 .hasSidebar{
@@ -33,10 +42,26 @@ h1{
     width:100%;
 }
 
+button{
+    background:rgba(0,0,0, 0.3);
+    color:white;
+    border:none;
+}
+button:hover{
+    background:rgba(0,0,0, 0.1);
+}
+
+tr:hover{
+    background:rgba(0,0,0, 0.2);
+}
+
 #sbtoggle{
     position:absolute;
-    top:1em;
-    left:1em;
+    top:0.5em;
+    left:0.5em;
+    padding:0.4em;
+    font-size:1.2em;
+    width:24em;
 }
 
 #controls{
@@ -44,7 +69,7 @@ h1{
     display: flex;
     flex-direction: row;
 }
-button{
+#filters button{
     flex-grow: 1;
     height:2em;
     font-size: 1em;
@@ -61,7 +86,6 @@ button{
 }
 
 th div{
-    color:#666666;
     font-weight: bold;
     cursor: default;
 }
@@ -84,10 +108,13 @@ table.sortable tbody tr::before {
 
 
 @media (max-width: 60em) {
-    .hasSidebar{
+    .hasSidebar, #filters{
         width:100%;
     }
     #sbtoggle{
         display:none;
+    }
+    h1{
+        padding:0.4em;
     }
 }
