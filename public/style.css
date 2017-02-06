@@ -30,9 +30,9 @@ h1{
 #filters{
     background: rgba(0,0,0, 0.4);
     width:25%;
-    width: -webkit-calc(100% - 4em);
-    width:    -moz-calc(100% - 4em);
-    width:         calc(100% - 4em);
+    height: -webkit-calc(100% - 4em);
+    height:    -moz-calc(100% - 4em);
+    height:         calc(100% - 4em);
     
 }
 #chartdiv {
@@ -123,6 +123,6 @@ table.sortable tbody tr::before {
         display:none;
     }
     h1{
-        padding:0.4em;
+        padding:0.1em;
     }
 }
