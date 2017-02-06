@@ -12,23 +12,26 @@ html, body {
     height:100%;
     width:100%;
     position:fixed;
-    background: rgb(84,84,84);
-    background: -moz-linear-gradient(45deg, #aaaaaa 2%, #dddddd 100%);
-    background: -webkit-linear-gradient(45deg, #aaaaaa 2%,#dddddd 100%);
-    background: linear-gradient(45deg, #aaaaaa 2%,#dddddd 100%);
     z-index: -1;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d3d3d3+0,ffffff+100 */
+background: rgb(211,211,211); /* Old browsers */
+background: -moz-linear-gradient(45deg,  rgba(211,211,211,1) 0%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(45deg,  rgba(211,211,211,1) 0%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(45deg,  rgba(211,211,211,1) 0%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d3d3d3', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
 }
 h1{
     padding:0.4em 20em;
     margin:0;
     text-align: center;
-    background: rgba(0,0,0, 0.4);
+    background: rgba(0,0,0, 0.65);
     -webkit-box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.5);
     -moz-box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.5);
     box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.5);
 }
 #filters{
-    background: rgba(0,0,0, 0.4);
+    background: rgba(0,0,0, 0.65);
     width:25%;
     height: -webkit-calc(100% - 4em);
     height:    -moz-calc(100% - 4em);
@@ -38,7 +41,7 @@ h1{
 #chartdiv {
     float:right;
     height: 90%;
-    margin-top:2em;
+    padding-top:1em;
 }
 
 .hasSidebar{
@@ -65,11 +68,11 @@ tr:hover{
 
 #sbtoggle{
     position:absolute;
-    top:0.5em;
-    left:0.5em;
+    top:0.7em;
+    left:0.7em;
     padding:0.4em;
     font-size:1.2em;
-    width:24em;
+    width:23.3em;
 }
 
 #controls{
@@ -121,6 +124,9 @@ table.sortable tbody tr::before {
     }
     #sbtoggle{
         display:none;
+    }
+    #chartdiv{
+        margin:0;
     }
     h1{
         padding:0.1em;
