@@ -42,7 +42,7 @@ module.exports = app.listen(PORT, function (err) {
 
 
 //------------------------------------------------------------------------------
-// Routesa
+// Routes
 //------------------------------------------------------------------------------
 
 app.use('/upgraph', express.static(path.join(__dirname, 'public')));

@@ -36,7 +36,6 @@ h1{
     height: -webkit-calc(100% - 4em);
     height:    -moz-calc(100% - 4em);
     height:         calc(100% - 4em);
-    
 }
 #chartdiv {
     float:right;
@@ -79,6 +78,7 @@ tr:hover{
     width:100%;
     display: flex;
     flex-direction: row;
+    margin-bottom: 1em;
 }
 #filters button{
     flex-grow: 1;
@@ -94,6 +94,11 @@ tr:hover{
 #toggles {
     flex-grow: 1;
     width:100%;
+}
+
+#historicButton{
+    margin-top:1em;
+    margin-bottom: 1em;
 }
 
 th div{

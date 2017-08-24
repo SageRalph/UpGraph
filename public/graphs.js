@@ -1,12 +1,18 @@
 
 var defaultSocNumber = 10; // When page loads, show only this many societies
 
-var chart, data, data, societies;
+var chart, data, societies, historic = false;
 
-window.addEventListener('load', function () {
-    ajax("GET", "data", null, init);
-});
+window.addEventListener('load', getData);
 
+/**
+ * Requests data from the API.
+ */
+function getData() {
+    var url = "data";
+    if (!historic) url += "?recent=true";
+    ajax("GET", url, null, init);
+}
 
 /**
  * Toggles display of the sidebar.
@@ -14,6 +20,16 @@ window.addEventListener('load', function () {
 function toggleSidebar() {
     var ch = document.getElementById('chartdiv');
     ch.className = ch.className === 'hasSidebar' ? 'fullWidth' : 'hasSidebar';
+}
+
+/**
+ * Toggles display of historic data.
+ */
+function toggleHistoric() {
+    historic = !historic;
+    var str = historic ? 'Show Current Year' : 'Show Previous Years';
+    document.getElementById('historicButton').innerText = str;
+    getData();
 }
 
 /**
@@ -53,7 +69,7 @@ function selectAll() {
 }
 
 /**
- * Removes elem from arr if present, othewise adds elem to arr
+ * Removes elem from arr if present, otherwise adds elem to arr
  */
 function invertMembership(elem, arr) {
     var pos = arr.indexOf(elem);
@@ -218,11 +234,11 @@ function drawGraph() {
         "mouseWheelZoomEnabled": true,
         "dataDateFormat": "YYYY-MM-DD",
         "valueAxes": [{
-                "id": "v1",
-                "axisAlpha": 0,
-                "position": "left",
-                "ignoreAxisWidth": true
-            }],
+            "id": "v1",
+            "axisAlpha": 0,
+            "position": "left",
+            "ignoreAxisWidth": true
+        }],
         "balloon": {
             "borderThickness": 1,
             "shadowAlpha": 0
