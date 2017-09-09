@@ -51,7 +51,7 @@ function init(response, status) {
  * Returns a list of current societies, up to limit (or all if not set).
  */
 function getSocs(limit) {
-    var socs = Object.keys(data[0]);
+    var socs = Object.keys(data[data.length - 1]);
     socs.splice(socs.indexOf("date"), 1);
     if (limit && socs.length > limit)
         socs = socs.slice(0, limit);
