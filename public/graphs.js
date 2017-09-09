@@ -19,7 +19,14 @@ function getData() {
  */
 function toggleSidebar() {
     var ch = document.getElementById('chartdiv');
-    ch.className = ch.className === 'hasSidebar' ? 'fullWidth' : 'hasSidebar';
+    var fi = document.getElementById('filters');
+    if (ch.className === 'hasSidebar') {
+        ch.className = 'fullWidth';
+        fi.className = 'fullWidth';
+    } else {
+        ch.className = 'hasSidebar';
+        fi.className = '';
+    }
 }
 
 /**
