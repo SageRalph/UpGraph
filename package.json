@@ -5,7 +5,9 @@
   "repository": "https://github.com/DavidRalph/UpGraph",
   "scripts": {
     "test": "eslint *.js",
-    "start": "node app"
+    "start": "node app",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "keywords": [],
   "author": "Louis Capitanchik, David Ralph",
@@ -21,9 +23,11 @@
     "moment": "^2.22.2",
     "node-schedule": "^1.3.0",
     "request": "^2.87.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "snyk": "^1.319.0"
   },
   "devDependencies": {
     "eslint": "^3.19.0"
-  }
+  },
+  "snyk": true
 }
