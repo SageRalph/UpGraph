@@ -2,13 +2,13 @@
   "name": "UpGraph",
   "version": "1.0.0",
   "description": "",
-  "repository": "https://github.com/DavidRalph/UpGraph",
+  "repository": "https://github.com/SageRalph/UpGraph",
   "scripts": {
     "test": "eslint *.js",
     "start": "node app"
   },
   "keywords": [],
-  "author": "Louis Capitanchik, David Ralph",
+  "author": "Louis Capitanchik, Sage Ralph",
   "license": "MIT",
   "dependencies": {
     "bluebird": "^3.5.1",
